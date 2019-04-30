@@ -1,7 +1,5 @@
-from flask import Flask, render_template, request, session, flash, url_for, send_from_directory
-from flask_mail import Mail, Message
-import os, json, re, flask_sijax, math, sqlite3, subprocess
-from flask import make_response
+from flask import Flask, render_template, request, session, flash, url_for, send_from_directory, make_response
+import os, json, re, math, subprocess
 from functools import wraps, update_wrapper
 from datetime import datetime
 
@@ -14,6 +12,10 @@ def main():
 @app.route("/about")
 def about():
     return render_template('about.html', session=session)
+
+@app.route("/explorer")
+def explorer():
+    return render_template('index.html', session=session)
 
 def nocache(view):
     @wraps(view)
@@ -35,7 +37,8 @@ if __name__ == "__main__":
     app.secret_key = os.urandom(12)
     host = str(subprocess.check_output(['ipconfig', 'getifaddr', 'en0']))[2:-3]
     print(host)
-    host = "169.231.36.37"
-    app.run(debug=True, use_reloader=False, host=host, port=34197) # change use_reloader to True when running
+    #host = "169.231.36.37"
+    #"http://169.231.100.100"
+    app.run(debug=False, use_reloader=False, host=host, port=34197) # change use_reloader to True when running
 
     
