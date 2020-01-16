@@ -27,14 +27,6 @@ def index():
             filedict[_file] = {"name": filename, "type": filetype}
     return render_template('home.html', session=session, filedict=filedict)
 
-@app.route("/about")
-def about():
-    return render_template('about.html', session=session)
-
-@app.route("/explorer")
-def explorer():
-    return render_template('index.html', session=session)
-
 def nocache(view):
     @wraps(view)
     def no_cache(*args, **kwargs):
@@ -59,8 +51,7 @@ def allowed_file(filename):
 def upload():
     if 'file' in request.files:
         file = request.files['file']
-        if file.filename == '': return index()
-        if file and allowed_file(file.filename):
+        if file and file.filename != '':
             filename = secure_filename(file.filename)
             print("FILE: " + filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))

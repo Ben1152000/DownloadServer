@@ -12,11 +12,16 @@
       body { /* Space out content a bit */
           background-size: cover;
           background-attachment: fixed;
+          background-color: rgb(85, 132, 150);
+          background-image: url('static/background.png');
+          /*
           background-color: hsl(355, 57%, 40%);
           background-image:
               repeating-linear-gradient(transparent, transparent 27.5px,rgba(0,0,0,.4) 27.5px, rgba(0,0,0,.4) 29px, transparent 29px, transparent 34px, rgba(0,0,0,.4) 34px, rgba(0,0,0,.4) 35.5px, transparent 35.5px, transparent 60.5px, rgba(0,0,0,.5) 60.5px, rgba(0,0,0,.5) 85.5px, rgba(255,255,255,.2) 85.5px, rgba(255,255,255,.2) 87px, rgba(0,0,0,.5) 87px, rgba(0,0,0,.5) 92px, rgba(255,255,255,.2) 92px, rgba(255,255,255,.2) 93.5px, rgba(0,0,0,.5) 93.5px, rgba(0,0,0,.5) 118.5px, transparent 118.5px),
               repeating-linear-gradient(270deg, transparent, transparent 27.5px,rgba(0,0,0,.4) 27.5px, rgba(0,0,0,.4) 29px, transparent 29px, transparent 34px, rgba(0,0,0,.4) 34px, rgba(0,0,0,.4) 35.5px, transparent 35.5px, transparent 60.5px, rgba(0,0,0,.5) 60.5px, rgba(0,0,0,.5) 85.5px, rgba(255,255,255,.2) 85.5px, rgba(255,255,255,.2) 87px, rgba(0,0,0,.5) 87px, rgba(0,0,0,.5) 92px, rgba(255,255,255,.2) 92px, rgba(255,255,255,.2) 93.5px, rgba(0,0,0,.5) 93.5px, rgba(0,0,0,.5) 118.5px, transparent 118.5px),
               repeating-linear-gradient(125deg, transparent, transparent 1px, rgba(0,0,0,.2) 1px, rgba(0,0,0,.2) 2px, transparent 2px, transparent 4px, rgba(0,0,0,.2) 4px);
+          */
+          overscroll-behavior-y: none; /* hack to fix chrome overscrolling */
       }
       .header, .footer { /* Everything but the jumbotron gets side spacing for mobile first views */
           padding-right: 15px;
@@ -67,14 +72,14 @@
               padding-left: 0;
           }
           .header { /* Space out the masthead */
-              margin-bottom: 30px;
+              margin-bottom: 20px;
           }
           .jumbotron { /* Remove the bottom border on the jumbotron for visual effect */
               border-bottom: 0;
           }
       }
-      p {font-size: 14pt !important; text-align: left;}
-      h3 {font-size: 14pt !important;}
+      p {font-size: 14pt; text-align: left;}
+      h3 {font-size: 14pt;}
       .copy-left { /* This class reverses any text */
           display: inline-block;
           text-align: right;
@@ -112,8 +117,8 @@
 
       <div class="card" >
         <div class="card-body">
-          <h5 class="card-title">File Upload</h5>
-          <p class="card-text">Upload any file to the site for quick remote access.</p>
+          <h5 class="card-title">File Uploader</h5>
+          <p class="card-text" style="font-size: 12pt !important">Upload any file to the site for quick remote access.</p>
           <form class=" d-flex justify-content-between align-items-center" action="upload" method="post" enctype="multipart/form-data">
             <input type="file" name="file" id="file">
             <input type="submit" class="btn btn-primary" name="submit" value="Submit">
