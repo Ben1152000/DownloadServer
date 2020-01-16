@@ -1,13 +1,24 @@
-from flask import Flask, render_template, request, session, flash, url_for, send_from_directory, make_response
+from flask import Flask, flash, render_template, request, redirect, session, flash, url_for, send_from_directory, make_response
 import os, json, re, math, subprocess
 from functools import wraps, update_wrapper
 from datetime import datetime
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = './uploads'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def getfiles(dirpath):
+    filelist = [s for s in os.listdir(dirpath)
+         if os.path.isfile(os.path.join(dirpath, s))]
+    filelist.sort(key=lambda s: os.path.getmtime(os.path.join(dirpath, s)))
+    return filelist
 
 @app.route("/")
-def main():
-    filelist = os.listdir('uploads')
+def index():
+    filelist = getfiles(UPLOAD_FOLDER)
     filedict = {}
     for _file in filelist:
         filename = ".".join(_file.split(".")[:-1])
@@ -39,6 +50,21 @@ def nocache(view):
 @nocache
 def download(filename):
     return send_from_directory(directory='uploads', filename=filename, as_attachment=True)
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route("/upload", methods=['POST'])
+def upload():
+    if 'file' in request.files:
+        file = request.files['file']
+        if file.filename == '': return index()
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            print("FILE: " + filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
