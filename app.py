@@ -7,7 +7,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def main():
-    return render_template('home.html', session=session, filelist=os.listdir('uploads'))
+    filelist = os.listdir('uploads')
+    filedict = {}
+    for _file in filelist:
+        filename = ".".join(_file.split(".")[:-1])
+        filetype = _file.split(".")[-1]
+        if len(filename) > 0:
+            filedict[_file] = {"name": filename, "type": filetype}
+    return render_template('home.html', session=session, filedict=filedict)
 
 @app.route("/about")
 def about():
@@ -37,8 +44,7 @@ if __name__ == "__main__":
     app.secret_key = os.urandom(12)
     host = str(subprocess.check_output(['ipconfig', 'getifaddr', 'en0']))[2:-3]
     print(host)
-    #host = "169.231.36.37"
-    #"http://169.231.100.100"
+    #host = "169.231.15.119"
     app.run(debug=False, use_reloader=False, host=host, port=34197) # change use_reloader to True when running
 
     

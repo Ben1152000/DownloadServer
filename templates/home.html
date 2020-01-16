@@ -12,7 +12,7 @@
       body { /* Space out content a bit */
           background-size: cover;
           background-attachment: fixed;
-          background-color: hsl(2, 57%, 40%);
+          background-color: hsl(355, 57%, 40%);
           background-image:
               repeating-linear-gradient(transparent, transparent 27.5px,rgba(0,0,0,.4) 27.5px, rgba(0,0,0,.4) 29px, transparent 29px, transparent 34px, rgba(0,0,0,.4) 34px, rgba(0,0,0,.4) 35.5px, transparent 35.5px, transparent 60.5px, rgba(0,0,0,.5) 60.5px, rgba(0,0,0,.5) 85.5px, rgba(255,255,255,.2) 85.5px, rgba(255,255,255,.2) 87px, rgba(0,0,0,.5) 87px, rgba(0,0,0,.5) 92px, rgba(255,255,255,.2) 92px, rgba(255,255,255,.2) 93.5px, rgba(0,0,0,.5) 93.5px, rgba(0,0,0,.5) 118.5px, transparent 118.5px),
               repeating-linear-gradient(270deg, transparent, transparent 27.5px,rgba(0,0,0,.4) 27.5px, rgba(0,0,0,.4) 29px, transparent 29px, transparent 34px, rgba(0,0,0,.4) 34px, rgba(0,0,0,.4) 35.5px, transparent 35.5px, transparent 60.5px, rgba(0,0,0,.5) 60.5px, rgba(0,0,0,.5) 85.5px, rgba(255,255,255,.2) 85.5px, rgba(255,255,255,.2) 87px, rgba(0,0,0,.5) 87px, rgba(0,0,0,.5) 92px, rgba(255,255,255,.2) 92px, rgba(255,255,255,.2) 93.5px, rgba(0,0,0,.5) 93.5px, rgba(0,0,0,.5) 118.5px, transparent 118.5px),
@@ -23,9 +23,8 @@
           padding-left: 15px;
       }
       .header { /* Custom page header */
-          padding-bottom: 20px;
-          border-bottom: 1px
-          solid #e5e5e5;
+          /*padding-bottom: 20px;*/
+          /*border-bottom: 1px solid #e5e5e5;*/
       }
       .header h3 { /* Make the masthead heading the same height as the navigation */
           margin-top: 0;
@@ -33,9 +32,14 @@
           line-height: 40px;
       }
       .footer { /* Custom page footer */
-          padding-top: 19px;
+          margin-top: 20px;
           color: #777;
-          border-top: 1px solid #e5e5e5;
+          /*border-top: 1px solid #e5e5e5;*/
+      }
+      .container { /* Inner body */
+          background-color: #e5e5e5;
+          padding: 40px 60px; 
+          height: 100%
       }
       @media (min-width: 768px) { /* Customize container */
           .container {
@@ -85,22 +89,46 @@
     </style>
   </head>
   <body>
-    <div class="container" style="background-color: white; padding: 20px 40px; height: 100%">
+    <div class="container">
+
       <div class="header">
-        <h1>directory:</h1>
+        <h2>Download Server</h2>
       </div>
+
       <ul class="list-group body">
-        {% for file in filelist %}
-          <li class="list-group-item">File {{ loop.index }}: <a href="/uploads/{{ file }}">{{ file }}</a></li>
+        <li class="list-group-item">
+          <h5 style="margin-bottom: 0">File Browser</h5>
+        </li>
+        {% for file in filedict %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>
+              <span style="margin-right: 20px">{{ loop.index }}</span>
+              <a href="/uploads/{{ file }}">{{ filedict[file]["name"] }}</a>
+            </span>
+            <span class="badge badge-secondary badge-pill">{{ filedict[file]["type"] }}</span>
+          </li>
         {% endfor %}
       </ul>
+
+      <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title">File Upload</h5>
+          <p class="card-text">Upload any file to the site for quick remote access.</p>
+          <form class=" d-flex justify-content-between align-items-center" action="upload_file.html" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="file">
+            <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+      
       <footer class="footer">
-        <p style="font-size: 10pt !important">
+        <p style="font-size: 10pt !important; margin-bottom: 0">
           <span class="copy-left">&copy;</span>
           <a href="mailto:bdarnell@ucsb.edu">Ben Darnell</a>
           2017
         </p>
       </footer>
+
     </div>
   </body>
 </html>
