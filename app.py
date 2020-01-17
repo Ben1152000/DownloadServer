@@ -25,6 +25,8 @@ def index():
         filetype = _file.split(".")[-1]
         if len(filename) > 0:
             filedict[_file] = {"name": filename, "type": filetype}
+    if "error" in session: 
+        return render_template('home.html', session=session, filedict=filedict, error=session["error"])
     return render_template('home.html', session=session, filedict=filedict)
 
 def nocache(view):
@@ -49,12 +51,18 @@ def allowed_file(filename):
 
 @app.route("/upload", methods=['POST'])
 def upload():
+    if request.form['password'] != "cato":
+        session['error'] = "Incorrect password."
+        return redirect(url_for('index'))
     if 'file' in request.files:
         file = request.files['file']
         if file and file.filename != '':
             filename = secure_filename(file.filename)
             print("FILE: " + filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            session['error'] = None
+            return redirect(url_for('index'))
+    session['error'] = "Upload failed."
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
