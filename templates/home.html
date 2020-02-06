@@ -97,26 +97,66 @@
       }
     </style>
   </head>
-  <body>
+  <body onload="query()">
     <div class="container">
 
       <div class="header" id="header">
         <h2>Download Server</h2>
       </div>
 
-      <ul class="list-group body">
-        <li class="list-group-item">
+      <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title">Query:</h5>
+          <input id="query-box" class="form-control" name="query" type="text" 
+            placeholder="Search" aria-label="Search" value="" onchange="query()" 
+            onpaste="query()" onkeydown="query()" oninput="query()" >
+          <script>
+            function query() {
+              var query = document.getElementById('query-box').value;
+              console.log(query);
+              var files = document.getElementById('file-box').children;
+              var count = 0;
+              for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                if (file.id == "file-box-label") {
+                } else if (file.id == "file-box-empty") {
+                  file.style.display = count? "none": "block";
+                } else {
+                  if (file.dataset.name.toLowerCase().includes(query.toLowerCase())) {
+                    file.style.display = "block";
+                    count += 1;
+                  } else { 
+                    file.style.display = "none"; 
+                  }
+                }
+              }
+            }
+            function clear() {
+              document.getElementById('query-box').value = "";
+            }
+          </script>
+        </div>
+      </div>
+
+      <ul id="file-box" class="list-group body">
+        <li id="file-box-label" class="list-group-item">
           <h5 style="margin-bottom: 0">File Browser</h5>
         </li>
         {% for file in filedict %}
-          <li class="list-group-item d-flex justify-content-between align-items-center">
+          <li id="file-{{ loop.index }}" 
+            data-name="{{ filedict[file]['name'] }}" 
+            data-type="{{ filedict[file]['type'] }}"
+            class="list-group-item justify-content-between align-items-center" >
             <span style="width: 100%">
               <span style="margin-right: 20px; display: inline-block; width: 10px;">{{ loop.index }}</span>
                 <a href="/uploads/{{ file }}">{{ filedict[file]["name"] }}</a>
             </span>
-            <span class="badge badge-secondary badge-pill">{{ filedict[file]["type"] }}</span>
+            <span style="float: right" class="badge badge-secondary badge-pill">{{ filedict[file]["type"] }}</span>
           </li>
         {% endfor %}
+        <li id="file-box-empty" class="list-group-item" style="display: none">
+          <span style="margin-bottom: 0">No results found.</h5>
+        </li>
       </ul>
 
       <div class="card" >
@@ -131,7 +171,9 @@
         </div>
         {% if error %}
           <script>
-            window.onload = function(){ alert("{{ error }}") };
+            window.onload = function(){ 
+              alert("{{ error }}");
+            };
           </script>
         {% endif %}
       </div>
