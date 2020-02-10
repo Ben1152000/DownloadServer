@@ -104,12 +104,14 @@
         <h2>Download Server</h2>
       </div>
 
-      <div class="card" >
-        <div class="card-body">
-          <h5 class="card-title">Query:</h5>
+      <ul id="file-box" class="list-group body">
+        <li id="file-box-label" class="list-group-item" 
+          style="display: grid; grid-template-columns: 50% [col-title] 50% [col-query]">
+          <h5 style="display: flex; align-items: center; margin-bottom: 0">File Browser</h5>
           <input id="query-box" class="form-control" name="query" type="text" 
-            placeholder="Search" aria-label="Search" value="" onchange="query()" 
-            onpaste="query()" onkeydown="query()" oninput="query()" >
+            placeholder="Query" aria-label="Search" value="" onchange="query()" 
+            onpaste="query()" onkeydown="query()" oninput="query()" 
+            style="grid-column-start: col-title; grid-column-end: col-query">
           <script>
             function query() {
               var query = document.getElementById('query-box').value;
@@ -135,12 +137,6 @@
               document.getElementById('query-box').value = "";
             }
           </script>
-        </div>
-      </div>
-
-      <ul id="file-box" class="list-group body">
-        <li id="file-box-label" class="list-group-item">
-          <h5 style="margin-bottom: 0">File Browser</h5>
         </li>
         {% for file in filedict %}
           <li id="file-{{ loop.index }}" 
