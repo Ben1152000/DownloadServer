@@ -1,0 +1,55 @@
+
+body { /* Space out content a bit */
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: rgb(85, 132, 150);
+    background-image: url("/static/image/background.svg");
+    overscroll-behavior-y: none; /* hack to fix chrome overscrolling */
+}
+
+.footer { /* Custom page footer */
+    color: #777;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.container { /* Inner body */
+    background-color: #e8e8e8;
+    max-width: 768px !important;
+}
+
+@media (min-width: 768px) { /* Customize container */
+    .container {
+        padding: 40px 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 8%;
+    }
+}
+
+.copy-left { /* This class reverses any text */
+    display: inline-block;
+    text-align: right;
+    margin: 0px;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: “FlipH”;
+}
+
+.item-index {
+    margin-right: 20px; 
+    display: inline-block; 
+    width: 10px;
+}
+
+.badge {
+    line-height: 1rem;
+}

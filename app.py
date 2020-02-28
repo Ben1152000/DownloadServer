@@ -5,7 +5,6 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = './uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -26,7 +25,9 @@ def index():
         if len(filename) > 0:
             filedict[_file] = {"name": filename, "type": filetype}
     if "error" in session: 
-        return render_template('home.html', session=session, filedict=filedict, error=session["error"])
+        error = session["error"]
+        del session["error"]
+        return render_template('home.html', session=session, filedict=filedict, error=error)
     return render_template('home.html', session=session, filedict=filedict)
 
 def nocache(view):
@@ -44,10 +45,6 @@ def nocache(view):
 @nocache
 def download(filename):
     return send_from_directory(directory='uploads', filename=filename, as_attachment=True)
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/upload", methods=['POST'])
 def upload():
@@ -67,9 +64,7 @@ def upload():
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
-    host = str(subprocess.check_output(['ipconfig', 'getifaddr', 'en0']))[2:-3]
-    print(host)
-    #host = "169.231.15.119"
+    host = str(subprocess.check_output(['ipconfig', 'getifaddr', 'en0']).decode("utf-8")).strip()
     app.run(debug=False, use_reloader=False, host=host, port=34197) # change use_reloader to True when running
 
     

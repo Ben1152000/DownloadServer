@@ -1,110 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta name="flag" content="five_bucks_if_you_beat_Shahar_to_it">
     <title>Download Server</title>
-    <link rel="shortcut icon" href="static/favicon_16.ico">
-    <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon_16.ico') }}">-->
-    <link rel="icon" href="static/favicon_32.ico">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon_16.ico') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icon/favicon_32.ico') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!--This is for nice mobile scaling-->
-    <style>
-      body { /* Space out content a bit */
-          background-size: cover;
-          background-attachment: fixed;
-          background-color: rgb(85, 132, 150);
-          background-image: url('static/background.svg');
-          /*
-          background-color: hsl(355, 57%, 40%);
-          background-image:
-              repeating-linear-gradient(transparent, transparent 27.5px,rgba(0,0,0,.4) 27.5px, rgba(0,0,0,.4) 29px, transparent 29px, transparent 34px, rgba(0,0,0,.4) 34px, rgba(0,0,0,.4) 35.5px, transparent 35.5px, transparent 60.5px, rgba(0,0,0,.5) 60.5px, rgba(0,0,0,.5) 85.5px, rgba(255,255,255,.2) 85.5px, rgba(255,255,255,.2) 87px, rgba(0,0,0,.5) 87px, rgba(0,0,0,.5) 92px, rgba(255,255,255,.2) 92px, rgba(255,255,255,.2) 93.5px, rgba(0,0,0,.5) 93.5px, rgba(0,0,0,.5) 118.5px, transparent 118.5px),
-              repeating-linear-gradient(270deg, transparent, transparent 27.5px,rgba(0,0,0,.4) 27.5px, rgba(0,0,0,.4) 29px, transparent 29px, transparent 34px, rgba(0,0,0,.4) 34px, rgba(0,0,0,.4) 35.5px, transparent 35.5px, transparent 60.5px, rgba(0,0,0,.5) 60.5px, rgba(0,0,0,.5) 85.5px, rgba(255,255,255,.2) 85.5px, rgba(255,255,255,.2) 87px, rgba(0,0,0,.5) 87px, rgba(0,0,0,.5) 92px, rgba(255,255,255,.2) 92px, rgba(255,255,255,.2) 93.5px, rgba(0,0,0,.5) 93.5px, rgba(0,0,0,.5) 118.5px, transparent 118.5px),
-              repeating-linear-gradient(125deg, transparent, transparent 1px, rgba(0,0,0,.2) 1px, rgba(0,0,0,.2) 2px, transparent 2px, transparent 4px, rgba(0,0,0,.2) 4px);
-          */
-          overscroll-behavior-y: none; /* hack to fix chrome overscrolling */
-      }
-      .header, .footer { /* Everything but the jumbotron gets side spacing for mobile first views */
-          padding-right: 15px;
-          padding-left: 15px;
-      }
-      .header h3 { /* Make the masthead heading the same height as the navigation */
-          margin-top: 0;
-          margin-bottom: 0;
-          line-height: 40px;
-      }
-      .footer { /* Custom page footer */
-          margin-top: 20px;
-          color: #777;
-          /*border-top: 1px solid #e5e5e5;*/
-      }
-      .container { /* Inner body */
-          background-color: #e8e8e8;
-          height: 100%;
-          max-width: 768px !important;
-      }
-      
-      @media (min-width: 768px) { /* Customize container */
-          .container {
-              padding: 40px 60px;
-          }
-      }
-      @media (max-width: 768px) {
-          .container {
-              padding: 40px 8%;
-          }
-      }
-
-      .jumbotron { /* Main marketing message and sign up button */
-          text-align: center;
-          border-bottom: 1px solid #e5e5e5;
-          margin-top: 30px;
-      }
-      .jumbotron .btn {
-          padding: 14px 24px;
-          font-size: 21px;
-      }
-      .body {
-          margin-top: 20px;
-          margin-bottom: 20px;
-      }
-      @media screen and (min-width: 768px) { /* Responsive: Portrait tablets and up */
-          .header, /* Remove the padding we set earlier */
-          .marketing,
-          .footer {
-              padding-right: 0;
-              padding-left: 0;
-          }
-          .header { /* Space out the masthead */
-              margin-bottom: 20px;
-          }
-          .jumbotron { /* Remove the bottom border on the jumbotron for visual effect */
-              border-bottom: 0;
-          }
-      }
-      p {font-size: 14pt; text-align: left;}
-      h3 {font-size: 14pt;}
-      .copy-left { /* This class reverses any text */
-          display: inline-block;
-          text-align: right;
-          margin: 0px;
-          -moz-transform: scaleX(-1);
-          -o-transform: scaleX(-1);
-          -webkit-transform: scaleX(-1);
-          transform: scaleX(-1);
-          filter: FlipH;
-          -ms-filter: “FlipH”;
-      }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   </head>
+  
   <body onload="query()">
     <div class="container">
 
-      <div class="header" id="header">
+      <div class="section header" id="header">
         <h2>Download Server</h2>
       </div>
 
-      <ul id="file-box" class="list-group body">
+      <ul id="file-box" class="section list-group body">
+        
         <li id="file-box-label" class="list-group-item" 
           style="display: grid; grid-template-columns: 50% [col-title] 50% [col-query]">
           <h5 style="display: flex; align-items: center; margin-bottom: 0">File Browser</h5>
@@ -112,50 +28,27 @@
             placeholder="Query" aria-label="Search" value="" onchange="query()" 
             onpaste="query()" onkeydown="query()" oninput="query()" 
             style="grid-column-start: col-title; grid-column-end: col-query">
-          <script>
-            function query() {
-              var query = document.getElementById('query-box').value;
-              console.log(query);
-              var files = document.getElementById('file-box').children;
-              var count = 0;
-              for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                if (file.id == "file-box-label") {
-                } else if (file.id == "file-box-empty") {
-                  file.style.display = count? "none": "block";
-                } else {
-                  if (file.dataset.name.toLowerCase().includes(query.toLowerCase())) {
-                    file.style.display = "block";
-                    count += 1;
-                  } else { 
-                    file.style.display = "none"; 
-                  }
-                }
-              }
-            }
-            function clear() {
-              document.getElementById('query-box').value = "";
-            }
-          </script>
+          <script src="{{url_for('static', filename='js/query.js')}}"></script>
         </li>
+
         {% for file in filedict %}
           <li id="file-{{ loop.index }}" 
             data-name="{{ filedict[file]['name'] }}" 
             data-type="{{ filedict[file]['type'] }}"
-            class="list-group-item justify-content-between align-items-center" >
-            <span style="width: 100%">
-              <span style="margin-right: 20px; display: inline-block; width: 10px;">{{ loop.index }}</span>
-                <a href="/uploads/{{ file }}">{{ filedict[file]["name"] }}</a>
-            </span>
+            class="list-group-item ">
+            <span class="item-index">{{ loop.index }}</span>
+            <a href="/uploads/{{ file }}">{{ filedict[file]["name"] }}</a>
             <span style="float: right" class="badge badge-secondary badge-pill">{{ filedict[file]["type"] }}</span>
           </li>
         {% endfor %}
+
         <li id="file-box-empty" class="list-group-item" style="display: none">
           <span style="margin-bottom: 0">No results found.</h5>
         </li>
+
       </ul>
 
-      <div class="card" >
+      <div class="section card" >
         <div class="card-body">
           <h5 class="card-title">File Uploader</h5>
           <p class="card-text" style="font-size: 12pt !important">Upload any file to the site for quick remote access.</p>
