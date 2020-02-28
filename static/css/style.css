@@ -2,8 +2,9 @@
 body { /* Space out content a bit */
     background-size: cover;
     background-attachment: fixed;
+    background-repeat: no-repeat;
     background-color: rgb(85, 132, 150);
-    background-image: url("/static/image/background.svg");
+    background-image: url("/static/image/wideground.svg");
     overscroll-behavior-y: none; /* hack to fix chrome overscrolling */
 }
 
