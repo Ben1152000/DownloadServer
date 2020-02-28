@@ -24,7 +24,7 @@ def index():
         filetype = _file.split(".")[-1]
         if len(filename) > 0:
             filedict[_file] = {"name": filename, "type": filetype}
-    if "error" in session: 
+    if "error" in session:
         error = session["error"]
         del session["error"]
         return render_template('home.html', session=session, filedict=filedict, error=error)
@@ -64,7 +64,7 @@ def upload():
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
-    host = str(subprocess.check_output(['ipconfig', 'getifaddr', 'en0']).decode("utf-8")).strip()
-    app.run(debug=False, use_reloader=False, host=host, port=34197) # change use_reloader to True when running
+    host = subprocess.check_output(['/bin/hostname', '-I']).strip().decode('utf-8')
+    app.run(debug=False, use_reloader=False, host=host, port=8000) # change use_reloader to True when running
 
     
