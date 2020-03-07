@@ -23,13 +23,15 @@ body { /* Space out content a bit */
 
 @media (min-width: 768px) { /* Customize container */
     .container {
-        padding: 20px 45px;
+        padding: 40px 50px;
+        padding-bottom: 20px;
     }
 }
 
 @media (max-width: 768px) {
     .container {
-        padding: 20px 6%;
+        padding: 40px 6.5%; 
+	padding-bottom: 20px;
     }
 }
 
